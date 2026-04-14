@@ -61,4 +61,13 @@ public class ClienteServicio {
         return clienteRepositorio.buscarPorId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado."));
     }
+
+    public Cliente buscarPorNumeroDocumento(String numeroDocumento) {
+        if (numeroDocumento == null || numeroDocumento.isBlank()) {
+            throw new IllegalArgumentException("El número de documento es obligatorio.");
+        }
+
+        return clienteRepositorio.buscarPorNumeroDocumento(numeroDocumento)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado con ese número de documento."));
+    }
 }
