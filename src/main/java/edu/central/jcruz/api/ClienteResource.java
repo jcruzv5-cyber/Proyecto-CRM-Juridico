@@ -57,6 +57,19 @@ public class ClienteResource {
         }
     }
 
+    @GET
+    @Path("/documento/{numeroDocumento}")
+    public Response buscarPorNumeroDocumento(@PathParam("numeroDocumento") String numeroDocumento) {
+        try {
+            Cliente cliente = clienteServicio.buscarPorNumeroDocumento(numeroDocumento);
+            return Response.ok(toResponse(cliente)).build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(new MensajeError(e.getMessage()))
+                    .build();
+        }
+    }
+
     private ClienteResponse toResponse(Cliente cliente) {
         ClienteResponse response = new ClienteResponse();
         response.idCliente = cliente.getIdCliente();
